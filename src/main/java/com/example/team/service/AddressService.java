@@ -1,6 +1,7 @@
 package com.example.team.service;
 
 import com.example.team.entities.Address;
+import com.example.team.entities.User;
 import com.example.team.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,15 @@ public class AddressService {
         return this.addressRepository.findAll();
     }
 
+    public List<User> getUsers(Long id) {
+        if(addressRepository.findById(id).isPresent()) {
+            Address newAddress = addressRepository.findById(id).get();
+            List<User> users = newAddress.getUsers();
+            return users;
+        }
+        return null;
+    }
+
     public Address createAddress(Address address) {
         Address newAddress = new Address();
         newAddress.setHouseNo(address.getHouseNo());
@@ -23,6 +33,10 @@ public class AddressService {
         newAddress.setPincode(address.getPincode());
         newAddress.setState(address.getState());
         newAddress.setCountry(address.getCountry());
+        // Adding user in address
+        for(int i=0; i<address.getUsers().size(); i++) {
+            newAddress.getUsers().add(address.getUsers().get(i));
+        }
         return this.addressRepository.save(newAddress);
     }
 

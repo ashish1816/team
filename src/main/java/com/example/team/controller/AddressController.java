@@ -1,6 +1,7 @@
 package com.example.team.controller;
 
 import com.example.team.entities.Address;
+import com.example.team.entities.User;
 import com.example.team.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,11 @@ public class AddressController {
         return this.addressService.getAddresses();
     }
 
+    @GetMapping("/addresses/{id}/users-info")
+    public List<User> getUsers(@PathVariable Long id) {
+        return this.addressService.getUsers(id);
+    }
+
     @PostMapping("/addresses")
     public Address createAddress(@RequestBody Address address) {
         return this.addressService.createAddress(address);
@@ -31,4 +37,6 @@ public class AddressController {
     public String deleteAddress(@PathVariable Long id) {
         return this.addressService.deleteAddress(id);
     }
+
+
 }

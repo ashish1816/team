@@ -23,6 +23,10 @@ public class UserService {
         newUser.setLname(user.getLname());
         newUser.setEmail(user.getEmail());
         newUser.setContact(user.getContact());
+        // Adding addresses in user
+        for(int i=0; i<user.getAddresses().size(); i++) {
+            newUser.getAddresses().add(user.getAddresses().get(i));
+        }
         return this.userRepository.save(user);
     }
 
