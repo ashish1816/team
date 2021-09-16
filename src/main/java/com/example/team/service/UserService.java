@@ -1,5 +1,6 @@
 package com.example.team.service;
 
+import com.example.team.entities.Address;
 import com.example.team.entities.User;
 import com.example.team.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,14 @@ public class UserService {
     public String deleteUser(Long id) {
         if(userRepository.findById(id).isPresent()) {
             User newUser = userRepository.findById(id).get();
+            List<Address> addresses = newUser.getAddresses();
+//            for(int i=0; i<addresses.size(); i++) {
+//                for(User user: addresses.get(i).getUsers()) {
+//                    if(user.getId()==id) {
+//                        addresses.get(i).getUsers().remove(user);
+//                    }
+//                }
+//            }
             userRepository.deleteById(id);
             return newUser.toString();
         }
